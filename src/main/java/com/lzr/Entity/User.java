@@ -1,14 +1,10 @@
 package com.lzr.Entity;
 
 public class User {
-    private int id;
+    private Long id;
     private String openid;
     private String userName;
     private String role;
-    public User(String openid, String userName) {
-        this.openid = openid;
-        this.userName = userName;
-    }
 
     @Override
     public String toString() {
@@ -28,11 +24,11 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

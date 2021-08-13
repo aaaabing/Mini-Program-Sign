@@ -26,7 +26,7 @@ public class Point {
 
     private String collectorName;
 
-    private String collectorId;
+    private Long collectorId;
 
     public String getTitle() {
         return title;
@@ -76,11 +76,11 @@ public class Point {
         this.collectorName = collectorName;
     }
 
-    public String getCollectorId() {
+    public Long getCollectorId() {
         return collectorId;
     }
 
-    public void setCollectorId(String collectorId) {
+    public void setCollectorId(Long collectorId) {
         this.collectorId = collectorId;
     }
     @Override
