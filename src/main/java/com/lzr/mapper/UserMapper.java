@@ -40,8 +40,9 @@ public interface UserMapper {
 
     /**
      * 根据openid获取管理员
-     * @param openid 微信openidd
+     * @param openid 微信openid
+     * @return 管理员ID
      */
     @Select("select id from user where openid=#{openid} and role='admin'")
-    public Object getAdmin(@Param("openid") String openid);
+     String getAdmin(@Param("openid") String openid);
 }
