@@ -15,4 +15,7 @@ public class StatusConstant {
 
     /**无效的用户登录*/
     public static final String INVALID_USER_LOGIN="invalidUserLogin";
+
+    /**无权限*/
+    public static final String NO_PERMISSION="noPermission";
 }
