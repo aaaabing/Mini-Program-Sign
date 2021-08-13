@@ -24,6 +24,10 @@ public class Point {
     @NotBlank(groups = Insert.class,message = "打卡点名称不能为空")
     private String title;
 
+    private String collectorName;
+
+    private String collectorId;
+
     public String getTitle() {
         return title;
     }
@@ -64,6 +68,21 @@ public class Point {
         this.lng = lng;
     }
 
+    public String getCollectorName() {
+        return collectorName;
+    }
+
+    public void setCollectorName(String collectorName) {
+        this.collectorName = collectorName;
+    }
+
+    public String getCollectorId() {
+        return collectorId;
+    }
+
+    public void setCollectorId(String collectorId) {
+        this.collectorId = collectorId;
+    }
     @Override
     public String toString() {
         return "Point{" +
@@ -72,6 +91,8 @@ public class Point {
                 ", lat='" + lat + '\'' +
                 ", lng='" + lng + '\'' +
                 ", title='" + title + '\'' +
+                ", collectorName='" + collectorName + '\'' +
+                ", collectorId='" + collectorId + '\'' +
                 '}';
     }
 }
