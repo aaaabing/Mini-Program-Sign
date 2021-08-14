@@ -4,7 +4,10 @@ import com.lzr.Entity.Point;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 对打卡点进行持久化操作
@@ -27,4 +30,11 @@ public interface PointMapper {
      */
     @Delete("delete from point where id=#{id}")
     void deletePoint(String id);
+
+    /**
+     * 获取所有打卡点
+     * @return 所有打卡点
+     */
+    @Select("select id,lat,lng,title from point")
+    List<Point> getPoints();
 }

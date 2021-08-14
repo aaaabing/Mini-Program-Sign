@@ -1,6 +1,7 @@
 package com.lzr.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.lzr.Entity.Point;
 import com.lzr.Entity.Task;
 import com.lzr.Entity.User;
@@ -99,5 +100,14 @@ public class Manager {
             e.printStackTrace();
         }
         return "success";
+    }
+
+    /**
+     * @date 2021.08.14
+     * @return 所有打卡点
+     */
+    @GetMapping("pointList")
+    public String pointList(){
+        return JSONObject.toJSONString(pointMapper.getPoints());
     }
 }
