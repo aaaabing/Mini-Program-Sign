@@ -20,7 +20,7 @@ public interface UserMapper {
      * @param openid 微信openid
      * @return 当前登录用户
      */
-    @Select("select id,userName,openid,role from user where openid=#{openid}")
+    @Select("select * from user where openid=#{openid}")
      User getUser(String openid);
 
     /**

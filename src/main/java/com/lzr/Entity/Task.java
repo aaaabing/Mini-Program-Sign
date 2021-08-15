@@ -37,11 +37,11 @@ public class Task {
         this.remarks = remarks;
     }
 
-    public String getPlaceId() {
+    public String getPointId() {
         return pointId;
     }
 
-    public void setPlaceId(String pointId) {
+    public void setPointId(String pointId) {
         this.pointId = pointId;
     }
 

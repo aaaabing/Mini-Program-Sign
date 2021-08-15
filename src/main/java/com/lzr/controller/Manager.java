@@ -12,7 +12,6 @@ import com.lzr.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
-
 import static com.lzr.constant.StatusConstant.INVALID_USER_LOGIN;
 import static com.lzr.constant.StatusConstant.NO_PERMISSION;
 
@@ -110,4 +109,25 @@ public class Manager {
     public String pointList(){
         return JSONObject.toJSONString(pointMapper.getPoints());
     }
+
+    /**
+     * 2021.08.14
+     * @return 所有打卡任务
+     */
+    @GetMapping("taskList")
+    public String taskList(){
+        return JSONObject.toJSONString(taskMapper.getTasks());
+    }
+
+    /**
+     * 2021.08.14
+     * 根据打卡点id获取打卡点信息
+     * @param id 打卡点id
+     * @return 打卡点信息
+     */
+    @GetMapping("/getPoint")
+    public String getPoint(@RequestParam("id") String id){
+        return JSONObject.toJSONString(pointMapper.getPointById(id));
+    }
+
 }

@@ -37,4 +37,12 @@ public interface PointMapper {
      */
     @Select("select id,lat,lng,title from point")
     List<Point> getPoints();
+
+    /**
+     *  根据打卡点id获取打卡点详细信息
+     * @param id 打卡点id
+     * @return 打卡点
+     */
+    @Select("select lat,lng,title from point where id=#{id}")
+    Point getPointById(String id);
 }

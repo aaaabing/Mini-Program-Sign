@@ -3,9 +3,6 @@ package com.lzr.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.lzr.mapper.Sign;
 import com.lzr.mapper.UserMapper;
-import com.lzr.Entity.dto.Cond;
-import com.lzr.Entity.dto.Resp;
-import com.lzr.Entity.dto.signList;
 import com.lzr.Entity.User;
 import com.lzr.Entity.signInf;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +22,9 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
-
 import static com.lzr.constant.StatusConstant.REGISTERED;
 import static com.lzr.constant.StatusConstant.UNREGISTERED;
-
+import com.lzr.Entity.dto.*;
 /**
  * @author lzr
  * @date 2021/08/10
@@ -106,7 +102,9 @@ public class Admin {
             e.printStackTrace();
         }
         User user= null;
-        user = new User(openid,userName);
+        user = new User();
+        user.setOpenid(openid);
+        user.setUserName(userName);
         userMapper.registerUser(user);
         return JSONObject.toJSONString(new Resp(token));
     }
@@ -128,7 +126,7 @@ public class Admin {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        String userName=userMapper.getName((String) redisTemplate.opsForValue().get(token));
+        String userName=userMapper.getUserName((String) redisTemplate.opsForValue().get(token));
         signInf s=new signInf(signTime,userName,address);
         System.out.println(s);
         sign.sign(s);
