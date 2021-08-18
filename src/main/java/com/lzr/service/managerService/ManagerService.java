@@ -1,4 +1,4 @@
-package com.lzr.service;
+package com.lzr.service.managerService;
 
 import com.lzr.Entity.Point;
 

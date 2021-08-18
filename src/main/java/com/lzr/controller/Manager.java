@@ -6,8 +6,12 @@ import com.lzr.Entity.Point;
 import com.lzr.Entity.Task;
 import com.lzr.Entity.User;
 import com.lzr.mapper.PointMapper;
+import com.lzr.mapper.SignMapper;
 import com.lzr.mapper.TaskMapper;
 import com.lzr.mapper.UserMapper;
+import com.lzr.service.email.EmailService;
+import com.lzr.service.excel.ExcelService;
+import com.lzr.service.threadPool.ThreadExecutorService;
 import com.lzr.util.UuidUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -44,6 +48,12 @@ public class Manager {
 
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    SignMapper signMapper;
+
+    @Autowired
+    ThreadExecutorService threadExecutorService;
     /**
      * 用于保存任务
      * @date 2021.08.12
@@ -130,4 +140,32 @@ public class Manager {
         return JSONObject.toJSONString(pointMapper.getPointById(id));
     }
 
+    /**
+     * 2021.08.15
+     * 获取签到名单
+     * @param id 打卡任务Id
+     * @return 签到名单
+     */
+    @GetMapping("/getSignList")
+    public String getSignList(@RequestParam("id")String id){
+        return JSONObject.toJSONString(signMapper.getSignStudentByTaskId(id));
+    }
+
+    @GetMapping("/exportExcel")
+    public String exportExcel(@RequestParam("id")String id,@RequestParam("email")String email){
+        try {
+            //@todo 身份校验
+            threadExecutorService.exportEmail(email);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "false";
+        }
+    }
+    @Autowired
+    EmailService emailService;
+    @GetMapping("/test")
+    public void test(){
+        emailService.sendEmail("src/main/resources/Excel/test.xlsx");
+    }
 }

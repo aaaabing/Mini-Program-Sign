@@ -1,7 +1,7 @@
-package com.lzr.service.impl;
+package com.lzr.service.managerService.impl;
 
 import com.lzr.Entity.Point;
-import com.lzr.service.ManagerService;
+import com.lzr.service.managerService.ManagerService;
 import org.springframework.stereotype.Service;
 
 /**

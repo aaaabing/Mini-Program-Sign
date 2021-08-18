@@ -1,7 +1,7 @@
 package com.lzr.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.lzr.mapper.Sign;
+import com.lzr.mapper.SignMapper;
 import com.lzr.mapper.UserMapper;
 import com.lzr.Entity.User;
 import com.lzr.Entity.signInf;
@@ -34,7 +34,7 @@ import com.lzr.Entity.dto.*;
 @RestController
 public class Admin {
     @Autowired
-    Sign sign;
+    SignMapper signMapper;
     @Autowired
     UserMapper userMapper;
     @Autowired
@@ -129,44 +129,13 @@ public class Admin {
         String userName=userMapper.getUserName((String) redisTemplate.opsForValue().get(token));
         signInf s=new signInf(signTime,userName,address);
         System.out.println(s);
-        sign.sign(s);
+        signMapper.sign(s);
         return "0";
     }
-    @PostMapping("/checkSign")
-    public String checkSign(@RequestBody String t){
-        String token=t.substring(6,t.indexOf("&"));
-        String openid= (String) redisTemplate.opsForValue().get(token);
-        String time=t.substring(t.indexOf("&")+6,t.length());
-        try {
-            time=URLDecoder.decode(time,"UTF-8");
-            time=time.substring(0,10);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        System.out.println(sign.checkSign(openid,time));
-        if (sign.checkSign(openid,time)!=null){
-            redisTemplate.opsForValue().set(token,openid,1800, TimeUnit.SECONDS);
-            return JSONObject.toJSONString(new Cond(REGISTERED,token));
-        }
-        else {
-            redisTemplate.opsForValue().set(token,openid,1800, TimeUnit.SECONDS);
-            return JSONObject.toJSONString(new Cond(UNREGISTERED,token));
-        }
-    }
-    @PostMapping("/getSignList")
-    public String getSignList(@RequestBody String t){
-        t=t.substring(5,t.length()).replaceAll("-","/");
-        signList[] signLists=sign.getSignList(t);
-        if (signLists.length==0) {
-            return "none";
-        }
-        else {
-            for (signList s:signLists) {
-                s.setSignTime(s.getSignTime().substring(10, s.getSignTime().length()));
-            }
-            return JSONObject.toJSONString(signLists);
-        }
-        }
+//    @PostMapping("/checkSign")//@TODO 签到前验证是否登录
+//    public String checkSign(@RequestBody String t){
+//
+//    }
     private static JSONObject doGetstr(String url){
         JSONObject js=null;
         try {
