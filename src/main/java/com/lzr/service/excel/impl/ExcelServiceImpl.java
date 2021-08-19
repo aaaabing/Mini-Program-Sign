@@ -3,6 +3,7 @@ package com.lzr.service.excel.impl;
 
 import com.lzr.Entity.Sign;
 import com.lzr.mapper.SignMapper;
+import com.lzr.mapper.TaskMapper;
 import com.lzr.service.excel.ExcelService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -27,11 +28,16 @@ public class ExcelServiceImpl implements ExcelService {
     @Autowired
     SignMapper signMapper;
 
-    public static final String SUFFIX=".xlsx";
+    @Autowired
+    TaskMapper taskMapper;
 
-    public static final String PREFIX="src/main/resources/Excel/";
+    /** 文件路径前缀*/
+    private static final String PREFIX="src/main/resources/Excel/";
+
+    /** 文件路径后缀*/
+    private static final String SUFFIX=".xlsx";
     @Override
-    public void createEmail(String taskId) {
+    public void createExcel(String taskId) {
         List<Sign> signList=signMapper.getSignStudentByTaskId(taskId);
         XSSFWorkbook Excel = new XSSFWorkbook();
         Sheet sheet = Excel.createSheet("打卡");
@@ -40,7 +46,6 @@ public class ExcelServiceImpl implements ExcelService {
         titleRow.createCell(1).setCellValue("打卡人");
         titleRow.createCell(2).setCellValue("打卡时间");
         titleRow.createCell(3).setCellValue("状态");
-        System.out.println(signList);
         signList.forEach(e->{
             int cell=sheet.getPhysicalNumberOfRows();
             Row row = sheet.createRow(cell);//从第二行开始保存数据
@@ -49,7 +54,7 @@ public class ExcelServiceImpl implements ExcelService {
             row.createCell(2).setCellValue(e.getSignTime());
             row.createCell(3).setCellValue("已打卡");
         });
-        String filePath="src/main/resources/Excel/test.xlsx";
+        String filePath=PREFIX+taskMapper.getTaskById(taskId).getRemarks()+SUFFIX;
         try {
             OutputStream outputStream = new FileOutputStream(filePath);
             Excel.write(outputStream);
@@ -62,7 +67,7 @@ public class ExcelServiceImpl implements ExcelService {
     }
 
     @Override
-    public void deleteEmail(String fileName) {
+    public void deleteExcel(String fileName) {
 
     }
 }

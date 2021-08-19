@@ -10,11 +10,11 @@ public interface ExcelService {
      * 生成Excel
      * @param taskId 打卡任务id
      */
-    void createEmail(String taskId);
+    void createExcel(String taskId);
 
     /**
      * 删除本地email
      * @param fileName 文件名
      */
-    void deleteEmail(String fileName);
+    void deleteExcel(String fileName);
 }

@@ -39,4 +39,12 @@ public interface TaskMapper {
     @Select("select id,remarks,pointId,deadLine from task")
      List<Task> getTasks();
     //@Todo 对于过期的打卡任务，考虑是定时删除还是查询时判读
+
+    /**
+     * 根据打卡id获取打卡任务
+     * @param id 任务id
+     * @return
+     */
+    @Select("select id,remarks,pointId,deadLine from task where id=#{id}")
+    Task getTaskById(String id);
 }

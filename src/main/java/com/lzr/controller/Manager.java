@@ -155,17 +155,16 @@ public class Manager {
     public String exportExcel(@RequestParam("id")String id,@RequestParam("email")String email){
         try {
             //@todo 身份校验
-            threadExecutorService.exportEmail(email);
+//            threadExecutorService.exportEmail(email);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();
             return "false";
         }
     }
-    @Autowired
-    EmailService emailService;
     @GetMapping("/test")
     public void test(){
-        emailService.sendEmail("src/main/resources/Excel/test.xlsx");
+        threadExecutorService.exportEmail("","1");
+        System.out.println(Thread.currentThread().getName()+" success");
     }
 }

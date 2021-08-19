@@ -27,8 +27,9 @@ public class EmailServiceImpl implements EmailService {
     JavaMailSenderImpl mailSender;
     @Override
     public void sendEmail(String filePath) {
-        //true表示支持复杂类型
+
         try {
+            //true表示支持复杂类型
             MimeMessageHelper messageHelper = new MimeMessageHelper(mailSender.createMimeMessage(), true);
             File file=new File(filePath);
             FileItem fileItem = FileUtils.createFileItem(file);
